@@ -1,58 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <title>Computer Components Order Form</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-            .background {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background: url('Pictures/Backgroundpic.jfif') no-repeat center center fixed;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: cover;
-                filter: blur(8px);
-                -webkit-filter: blur(8px);
-                z-index: -1;
-        }
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CompCompShop</title>
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Custom styling -->
+    <style>
+    .pictureBackground {
+    background: url('Pictures/Backgroundpic.jfif') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    }
     </style>
 </head>
-<body>
-<div class="background"></div>
-<div id="app">
-    <!-- Form -->
-    <form @submit.prevent="submitForm">
-        <select v-model="selectedComponent">
-            <option disabled value="">Please select one</option>
-            <option v-for="component in components" :key="component">{{ component }}</option>
-        </select>
-        <!-- Form fields -->
-        <button type="submit">Order Now</button>
-    </form>
-    <!-- Popup window -->
-    <div v-if="showPopup">
-        <p>Your selected component: {{ selectedComponent }}</p>
-        <!-- Add more information-->
+
+<body class="pictureBackground">
+    <div class="container mt-5 p-3 mb-2 bg-white text-black rounded-3">
+        <h1 class="mb-4">CompCompsShop</h1>
+        <form id="orderForm">
+            <!-- Dropdown for Cases -->
+            <div class="form-group">
+                <label for="cases">Cases:</label>
+                <select class="form-control" id="cases" required>
+                    <option value="case1">Case1 </option>
+                    <option value="case2">Case2</option>
+                    <option value="case3">Case3</option>
+                    <option value="case4">Case4</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary mt-4" onclick="scrollToPersonalData()">Order Now</button>
+        </form>
+
+        <!--Personal data section -->
+        <div id="personalDataSection" class="mt-5">
+            <h2 class="mb-4">Enter Your Personal Data</h2>
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Address 2</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">State</label>
+                    <select id="inputState" class="form-select">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            Check me out
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary" onclick="showOrderSummary()">Order Now</button>
+                </div>
+            </form>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data: {
-            components: ['Case', 'Cooling System', 'CPU', 'GPU', 'Fan', 'Hard Drive', 'SSD', 'RAM', 'Monitor', 'Mouse', 'Keyboard'],
-            selectedComponent: '',
-            showPopup: false
-        },
-        methods: {
-            submitForm() {
-                this.showPopup = true;
-            }
-        }
-    });
-</script>
+    </div>
 </body>
+
 </html>
