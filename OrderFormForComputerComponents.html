@@ -9,46 +9,106 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
     <!-- Custom styling -->
     <style>
-    .pictureBackground {
-    background: url('Pictures/Backgroundpic.jfif') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+
+    .pictureBackground1 {
+        background: url('Pictures/Backgroundpic1.jfif') no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .navbar {
+        background-color: transparent;
+    }
+
+    .navbar-brand {
+        font-family: 'Shadows Into Light', cursive;
+        font-size: 1.5rem;
     }
     </style>
 </head>
 
-<body class="pictureBackground">
-    <div class="container mt-5 p-3 mb-2 bg-white text-black rounded-3">
-        <h1 class="mb-4">CompCompsShop</h1>
-        <form id="orderForm">
-            <!-- Dropdown for Cases -->
-            <div class="form-group">
-                <label for="cases">Cases:</label>
-                <select class="form-control" id="cases" required>
-                    <option value="case1">Case1 </option>
-                    <option value="case2">Case2</option>
-                    <option value="case3">Case3</option>
-                    <option value="case4">Case4</option>
-                </select>
+<body>
+    <div>
+        <nav class="navbar navbar-light bg-light pictureBackground1">
+            <div class="container-fluid">
+                <a class="navbar-brand bg-white text-black rounded-3 " href="#">CompCompShop</a>
+                <form class="d-flex mx-auto w-75">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success bg-white text-black rounded-3" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                 <div>
+                    <button class="btn btn-outline-success bg-white text-black rounded-3" type="button" ><i class="fas fa-shopping-cart"></i> Card</button>
+                 </div>
             </div>
-            <button type="button" class="btn btn-primary mt-4" onclick="scrollToPersonalData()">Order Now</button>
+        </nav>
+    </div>
+    <div class="container mt-5 p-3 mb-2 bg-white text-black rounded-3">
+        <h2 class="mb-4">Choose your Parts in here</h2>
+        <form class="row g-2" id="orderForm">
+
+            <!-- Dropdown for Computer Parts -->
+                <label for="computerPartsAndAccessory">Computer Parts and Accessory:</label>
+                <div class="col-auto">
+                    <select class="form-select" id="computerPartsAndAccessory">
+                        <option selected>Open this select menu</option>
+                        <option value="case">Cases</option>
+                        <option value="MainBoard">Main Boards</option>
+                        <option value="CPUs">CPUs</option>
+                        <option value="coolingSystems">Cooling Systems</option>
+                        <option value="ram">Ram</option>
+                        <option value="ssdAndHdd">SSD & HDD</option>
+                        <option value="gpu">GPUs</option>
+                        <option value="monitor">Monitors</option>
+                        <option value="accessory">Accessory</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary" onclick="scrollToPersonalData()">Add To Card</button>
+                </div>
         </form>
 
+        <!-- Picture to illustrate the choice -->
+        <div class="mt-4">
+            <picture>
+                <source srcset="Pictures/BackgroundPic2.jfif" type="image/jpeg">
+                <img src="Pictures/BackgroundPic2.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+            </picture>
+        </div>
         <!--Personal data section -->
         <div id="personalDataSection" class="mt-5">
             <h2 class="mb-4">Enter Your Personal Data</h2>
             <form class="row g-3">
-                <div class="col-md-6">
-                    <label for="inputEmail4" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4">
+                <div class="col-md-4">
+                    <label for="validationCustom02" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationCustomUsername" class="form-label">Username</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12">
                     <label for="inputAddress" class="form-label">Address</label>
@@ -75,18 +135,53 @@
                 </div>
                 <div class="col-12">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                            Check me out
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                            Agree to terms and conditions
                         </label>
+                        <div class="invalid-feedback">
+                            You must agree before submitting.
+                        </div>
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-primary" onclick="showOrderSummary()">Order Now</button>
+                    <button type="submit" class="btn btn-primary" onclick="showOrderSummary()">Order Now</button>
                 </div>
             </form>
-    </div>
-    </div>
-</body>
+        </div>
 
+        <!-- Order summary popup -->
+        <div class="modal fade" id="orderSummaryModal" tabindex="-1" role="dialog" aria-labelledby="orderSummaryModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="orderSummaryModalLabel">Order Summary</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Order summary content will go here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- add additional buttons -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- JavaScript file -->
+    <script src="script.js"></script>
+</body>
 </html>
