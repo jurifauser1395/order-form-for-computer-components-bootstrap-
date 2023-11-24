@@ -41,7 +41,7 @@
             <!-- Shop logo that is pointing to the top of the page -->
             <a class="navbar-brand bg-white text-black rounded-3 " href="#">CompCompShop</a>
             <form class="d-flex mx-auto w-75">
-                <input class="form-control me-2" type="search" placeholder="Find new computer parts down here" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Find new computer parts here" aria-label="Search">
                 <div class="bg-white text-black rounded-3">
                     <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
                 </div>
@@ -51,144 +51,200 @@
              </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container-fluid bg-secondary ">
+        <div class="row">
 
-            <div class="container-fluid p-4 mt-2 bg-dark text-white rounded-3">
-                <form class="row g-2" id="orderForm">
-
-                        <!-- Dropdown for Computer Parts -->
-                        <label for="computerPartsAndAccessory">Computer Parts and Accessory:</label>
-                        <div class="col-auto mx-auto w-100">
-                            <select class="form-select" id="computerPartsAndAccessory">
-                                <option selected>Select your computer parts</option>
-                                <option value="case">Cases</option>
-                                <option value="MainBoard">Main Boards</option>
-                                <option value="CPUs">CPUs</option>
-                                <option value="coolingSystems">Cooling Systems</option>
-                                <option value="ram">Ram</option>
-                                <option value="ssdAndHdd">SSD & HDD</option>
-                                <option value="gpu">GPUs</option>
-                                <option value="monitor">Monitors</option>
-                                <option value="accessory">Accessory</option>
-                            </select>
-                        </div>
-                        <div class="col-auto mt-3 mb-3">
-                            <button type="button" class="btn btn-primary" onclick="scrollToPersonalData()">Add To Card</button>
-                        </div>
-                </form>
-
-                <!-- Picture to illustrate the choice -->
-                <picture>
-                    <source srcset="Pictures/BackgroundPicPC.jfif" type="image/jpeg">
-                    <img src="Pictures/BackgroundPicPC.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
-                </picture>
+            <!-- Advertisement column left -->
+            <div class="col-sm-2 container-fluid p-2 mb-2 mt-2 ms-3 bg-dark text-white rounded-3">
+                <h3 class="ms-3">Place your ads in here</h3>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad1.jfif" type="image/jpeg">
+                        <img src="Pictures/ad1.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad2.jfif" type="image/jpeg">
+                        <img src="Pictures/ad2.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad1.jfif" type="image/jpeg">
+                        <img src="Pictures/ad1.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad2.jfif" type="image/jpeg">
+                        <img src="Pictures/ad2.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
             </div>
 
+            <!-- Dropdown and personal data -->
+            <div class="col-sm container-fluid">
+                <div class="container-sm p-4 mt-2 bg-dark text-white rounded-3">
+                    <form class="row g-2" id="orderForm">
 
-        <!--Personal data section -->
-        <div class="container p-4 mt-5 mb-2 bg-dark text-white rounded-3">
-            <div id="personalDataSection">
-                <h2 class="mb-4">Enter Your Personal Data</h2>
-                <form class="row g-3">
-                    <div class="col-md-4">
-                        <label for="validationCustom01" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="validationCustom02" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="validationCustomUsername" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please choose a username.
+                            <!-- Dropdown for Computer Parts -->
+                            <label for="computerPartsAndAccessory">Computer Parts and Accessory:</label>
+                            <div class="col-12 mx-auto ">
+                                <select class="form-select" id="computerPartsAndAccessory">
+                                    <option selected>Select your computer parts</option>
+                                    <option value="case">Cases</option>
+                                    <option value="MainBoard">Main Boards</option>
+                                    <option value="CPUs">CPUs</option>
+                                    <option value="coolingSystems">Cooling Systems</option>
+                                    <option value="ram">Ram</option>
+                                    <option value="ssdAndHdd">SSD & HDD</option>
+                                    <option value="gpu">GPUs</option>
+                                    <option value="monitor">Monitors</option>
+                                    <option value="accessory">Accessory</option>
+                                </select>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                    </div>
-                    <div class="col-12">
-                        <label for="inputAddress2" class="form-label">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputState" class="form-label">State</label>
-                        <select id="inputState" class="form-select">
-                            <option selected>Choose...</option>
-                            <option>Baden-Württemberg</option>
-                            <option>Bavaria (Bayern)</option>
-                            <option>Berlin</option>
-                            <option>Brandenburg</option>
-                            <option>Bremen</option>
-                            <option>Hamburg</option>
-                            <option>Hesse (Hessen)</option>
-                            <option>Lower Saxony (Niedersachsen)</option>
-                            <option>Mecklenburg-Vorpommern</option>
-                            <option>North Rhine-Westphalia (Nordrhein-Westfalen)</option>
-                            <option>Rhineland-Palatinate (Rheinland-Pfalz)</option>
-                            <option>Saarland</option>
-                            <option>Saxony (Sachsen)</option>
-                            <option>Saxony-Anhalt (Sachsen-Anhalt)</option>
-                            <option>Schleswig-Holstein</option>
-                            <option>Thuringia (Thüringen)</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
-                    </div>
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                            <label class="form-check-label" for="invalidCheck">
-                                Agree to terms and conditions
-                            </label>
-                            <div class="invalid-feedback">
-                                You must agree before submitting.
+                            <div class="col-auto mt-3 mb-3">
+                                <button type="button" class="btn btn-primary" onclick="scrollToPersonalData()">Add To Card</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary" onclick="showOrderSummary()">Order Now</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- Order summary popup -->
-        <div class="modal fade" id="orderSummaryModal" tabindex="-1" role="dialog" aria-labelledby="orderSummaryModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="orderSummaryModalLabel">Order Summary</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Order summary content will go here -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <!-- add additional buttons -->
+                    </form>
+
+                    <!-- Picture to illustrate the choice -->
+                    <picture>
+                        <source srcset="Pictures/BackgroundPicPC.jfif" type="image/jpeg">
+                        <img src="Pictures/BackgroundPicPC.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+
+                <!--Personal data section -->
+                <div class="container-sm p-4 mt-5 mb-2 bg-dark text-white rounded-3">
+                    <div id="personalDataSection">
+                        <h2 class="mb-4">Enter Your Personal Data</h2>
+                        <form class="row g-3 needs-validation">
+                            <div class="col-md-4">
+                                <label for="validationCustom01" class="form-label">First name</label>
+                                <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustom02" class="form-label">Last name</label>
+                                <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustomEmail" class="form-label">Email</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                    <input type="text" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrepend" required>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress2" class="form-label">Address 2</label>
+                                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputCity" class="form-label">City</label>
+                                <input type="text" class="form-control" id="inputCity" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputState" class="form-label">State</label>
+                                <select id="inputState" class="form-select" required>
+                                    <option selected>Choose...</option>
+                                    <option>Baden-Württemberg</option>
+                                    <option>Bavaria (Bayern)</option>
+                                    <option>Berlin</option>
+                                    <option>Brandenburg</option>
+                                    <option>Bremen</option>
+                                    <option>Hamburg</option>
+                                    <option>Hesse (Hessen)</option>
+                                    <option>Lower Saxony (Niedersachsen)</option>
+                                    <option>Mecklenburg-Vorpommern</option>
+                                    <option>North Rhine-Westphalia (Nordrhein-Westfalen)</option>
+                                    <option>Rhineland-Palatinate (Rheinland-Pfalz)</option>
+                                    <option>Saarland</option>
+                                    <option>Saxony (Sachsen)</option>
+                                    <option>Saxony-Anhalt (Sachsen-Anhalt)</option>
+                                    <option>Schleswig-Holstein</option>
+                                    <option>Thuringia (Thüringen)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="inputZip" class="form-label">Zip</label>
+                                <input type="text" class="form-control" id="inputZip" required>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Agree to terms and conditions
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary" onclick="showOrderSummary()">Order Now</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            <!-- Advertisement column right -->
+            <div class="col-sm-2 container-fluid p-2 mb-2 mt-2 me-3 bg-dark text-white rounded-3">
+                <h3 class="ms-3">Place your ads in here</h3>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad1.jfif" type="image/jpeg">
+                        <img src="Pictures/ad1.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad2.jfif" type="image/jpeg">
+                        <img src="Pictures/ad2.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad1.jfif" type="image/jpeg">
+                        <img src="Pictures/ad1.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad2.jfif" type="image/jpeg">
+                        <img src="Pictures/ad2.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+            </div>
         </div>
+            <!-- Order summary popup -->
+            <div class="modal fade" id="orderSummaryModal" tabindex="-1" role="dialog" aria-labelledby="orderSummaryModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="orderSummaryModalLabel">Order Summary</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Order summary content will go here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <!-- add additional buttons -->
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 
     <!-- Vue.js -->
