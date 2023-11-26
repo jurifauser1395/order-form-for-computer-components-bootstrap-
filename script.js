@@ -5,19 +5,20 @@ let firstSelect = document.getElementById('computerPartsAndAccessory');
 let secondSelect = document.getElementById('secondSelect');
 let productPictureChange = document.getElementById('productPicture1');
 
-// Define your options
+// Declare options object
 let options = {
-    'products': {options: ['option0.1', 'option0.2', 'option0.3'], image:'Pictures/BackgroundPicPC.jfif'},
-    'cases': { options: ['option1.1', 'option1.2', 'option1.3'], image:'Pictures/cases.jfif'},
-    'MainBoard': { options:['option2.1', 'option2.2', 'option2.3'], image:'Pictures/motherboard.jfif'},
-    'CPUs': { options: ['option3.1', 'option3.2', 'option3.3'], image:'Pictures/CPU.jfif'},
-    'coolingSystems': { options: ['option4.1', 'option4.2', 'option4.3'], image:'Pictures/cooling.jfif'},
-    'ram': { options: ['option5.1', 'option5.2', 'option5.3'], image:'Pictures/ram.jfif'},
-    'ssdAndHdd': { options: ['option6.1', 'option6.2', 'option6.3'], image:'Pictures/HDD.jfif'},
-    'gpu': { options: ['option7.1', 'option7.2', 'option7.3'], image:'Pictures/GPU.jfif'},
-    'monitor': { options: ['option8.1', 'option8.2', 'option8.3'], image:'Pictures/monitors.jfif'},
-    'accessory': { options: ['option9.1', 'option9.2', 'option9.3'], image:'Pictures/accessory.jfif'}
+    'cases': { choices: ['Corsair Case', 'NZXT Case', 'Thermaltake Case', 'Cooler Master Case', 'Fractal Design Case'], image:'Pictures/cases.jfif'},
+    'MainBoard': { choices:['Asus Motherboard', 'Gigabyte Motherboard', 'MSI Motherboard', 'ASRock Motherboard', 'EVGA Motherboard'], image:'Pictures/motherboard.jfif'},
+    'cpus': { choices: ['Intel Core i7', 'AMD Ryzen 7', 'Intel Core i5', 'AMD Ryzen 5', 'Intel Core i9'], image:'Pictures/CPU.jfif'},
+    'coolingSystems': { choices: ['Noctua Cooler', 'be quiet! Cooler', 'Corsair Cooler', 'Cooler Master Cooler', 'NZXT Cooler'], image:'Pictures/cooling.jfif'},
+    'ram': { choices: ['Corsair RAM', 'G.Skill RAM', 'Kingston RAM', 'Crucial RAM', 'HyperX RAM'], image:'Pictures/ram.jfif'},
+    'ssdAndHdd': { choices: ['Samsung SSD', 'Western Digital HDD', 'Seagate HDD', 'Kingston SSD', 'SanDisk SSD'], image:'Pictures/HDD.jfif'},
+    'gpu': { choices: ['Nvidia GeForce RTX 3080', 'AMD Radeon RX 6800 XT', 'Nvidia GeForce RTX 3070', 'AMD Radeon RX 6700 XT', 'Nvidia GeForce RTX 3090'], image:'Pictures/GPU.jfif'},
+    'powerSupply': { choices : ['Corsair RMx Series', 'EVGA SuperNOVA', 'Seasonic FOCUS Plus', 'Thermaltake Toughpower', 'Cooler Master MWE Gold'], image:'Pictures/powerSupply.jfif'},
+    'monitor': { choices: ['Dell Monitor', 'Asus Monitor', 'Acer Monitor', 'LG Monitor', 'BenQ Monitor'], image:'Pictures/monitors.jfif'},
+    'accessory': { choices: ['Logitech Mouse', 'Razer Keyboard', 'SteelSeries Headset', 'Corsair Mouse Pad', 'HyperX Keyboard'], image:'Pictures/accessory.jfif'}
 };
+
 
 // Add an event listener to the first select element
 firstSelect.addEventListener('change', handleOptions);
@@ -29,13 +30,13 @@ function handleOptions() {
     // Clear the second select element
     secondSelect.innerHTML = '';
 
-    // Check if the selected option exists in your options object
+    // Check if the selected option exists in the options object
     if (options[selectedOption]) {
         // If it does, loop through the options and add them to the second select element
-        options[selectedOption].options.forEach(function(option) {
+        options[selectedOption].choices.forEach(function(choice) {
             let newOption = document.createElement('option');
-            newOption.text = option;
-            newOption.value = option;
+            newOption.text = choice;
+            newOption.value = choice;
             secondSelect.add(newOption);
         });
 
@@ -46,28 +47,32 @@ function handleOptions() {
         productPictureChange.src = options[selectedOption].image;
 
     } else {
-        // If the selected option does not exist in your options object, hide the second select element
+        // If the selected option does not exist in the options object, hide the second select element
         secondSelect.style.display = 'none';
+        productPictureChange.src = 'Pictures/BackgroundPicPC.jfif';
     }
 }
 
-
-
-
-//Example starter JavaScript for disabling form submissions if there are invalid fields
+// Personal data section handling
 (function () {
     'use strict'
 
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    // Fetch all the forms to apply custom Bootstrap validation styles to
     let forms = document.querySelectorAll('.needs-validation')
 
-    // Loop over them and prevent submission
+    // Loop over the form entry to prevent submission
     Array.prototype.slice.call(forms)
         .forEach(function (form) {
             form.addEventListener('submit', function (event) {
                 if (!form.checkValidity()) {
                     event.preventDefault()
                     event.stopPropagation()
+                } else {
+                    // If the form is valid, prevent form submission and show the modal
+                    event.preventDefault()
+
+                    let myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {});
+                    myModal.show();
                 }
 
                 form.classList.add('was-validated')
