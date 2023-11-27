@@ -47,35 +47,56 @@ function handleOptions() {
         productPictureChange.src = options[selectedOption].image;
 
     } else {
-        // If the selected option does not exist in the options object, hide the second select element
+        // If the selected option does not exist in the options object, hide the second select element and display the default picture
         secondSelect.style.display = 'none';
         productPictureChange.src = 'Pictures/BackgroundPicPC.jfif';
     }
 }
 
 // Personal data section handling
-(function () {
+window.onload = function () {
     'use strict'
 
-    // Fetch all the forms to apply custom Bootstrap validation styles to
     let forms = document.querySelectorAll('.needs-validation')
 
-    // Loop over the form entry to prevent submission
     Array.prototype.slice.call(forms)
         .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                } else {
-                    // If the form is valid, prevent form submission and show the modal
-                    event.preventDefault()
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    } else {
+                        event.preventDefault()
 
-                    let myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {});
-                    myModal.show();
-                }
+                        // Fetch the entered data
+                        let firstName = document.getElementById('InputFirstName').value;
+                        let lastName = document.getElementById('InputLastName').value;
+                        let email = document.getElementById('InputEmail').value;
+                        let address = document.getElementById('inputAddress').value;
+                        let city = document.getElementById('inputCity').value;
+                        let state = document.getElementById('inputState').value;
+                        let zip = document.getElementById('inputZip').value;
 
-                form.classList.add('was-validated')
-            }, false)
-        })
-})()
+                        // Pass the entered data into the modal
+                        document.getElementById('modalFirstName').innerText = " " + firstName;
+                        document.getElementById('modalLastName').innerText = " " + lastName;
+                        document.getElementById('modalEmail').innerText = " " + email;
+                        document.getElementById('modalAddress').innerText = " " + address;
+                        document.getElementById('modalCity').innerText = " " + city;
+                        document.getElementById('modalState').innerText = " " + state;
+                        document.getElementById('modalZip').innerText = " " + zip;
+
+                        // Display modal
+                        let myModalEl = document.getElementById('orderSummeryModal');
+                        let myModal = new bootstrap.Modal(myModalEl);
+                        myModal.show();
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            }
+        );
+}
+
+
+
