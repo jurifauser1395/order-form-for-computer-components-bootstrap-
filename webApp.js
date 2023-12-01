@@ -1,5 +1,5 @@
 
-// Declare and initialize select from elements
+// Declare and initialize select from elements and global variables
 let firstSelect = document.getElementById('computerPartsAndAccessory');
 let secondSelect = document.getElementById('secondSelect');
 let productPictureChange = document.getElementById('productPicture1');
@@ -9,7 +9,10 @@ let clearOrderButton =document.getElementById('clearOrderButtonShoppingCart');
 let emptyShoppingCartHeadLine = document.getElementById('shoppingCartHeadLine');
 let emptyShoppingCartContent = document.getElementById('shoppingCartContent');
 let emptyOrderSummeryContent = document.getElementById('shoppingCartOrderSummery');
-let shoppingBasketId = document.getElementById('shoppingBasket');
+let shoppingBasket = document.getElementById('shoppingBasketInput');
+let choiceLabel = document.getElementById('choiceLabelInput');
+let closeOrderSummery = document.getElementById('closeOrderSummeryInput');
+
 
 // Declare options object
 let options = {
@@ -46,10 +49,11 @@ firstSelect.addEventListener('change', function () {
         });
 
         // Add a label to the second dropdown
-        document.getElementById('choiceLabel').innerText = 'Select a product:'
+        choiceLabel.innerText = 'Select a product:'
 
         // Show the second select element
         secondSelect.style.display = 'block';
+        addToCartButton.style.display = 'block';
 
         // Change the product image
         productPictureChange.src = options[selectedOption].image;
@@ -57,34 +61,47 @@ firstSelect.addEventListener('change', function () {
     } else {
         // If the selected option does not exist in the options object, hide the second select element and display the default picture
         secondSelect.style.display = 'none';
+        addToCartButton.style.display = 'none';
         productPictureChange.src = 'Pictures/BackgroundPicPC.jfif';
-        document.getElementById('choiceLabel').innerText = ''
+        choiceLabel.innerText = ''
     }
 });
 
 // Item count
 let itemCount = 0;
 
+// Define blinking and item count function
+function blinkAndCountShoppingCart(){
+    itemCount += 1;
+    shoppingBasket.classList.add('fas', 'fa-shopping-cart');
+    shoppingBasket.innerText = ' (' + itemCount + ') ' + 'items';
+    cartButtonNavBar.classList.add('blink');
+
+    //scroll up to show the blink effect
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    setTimeout(function () {
+        cartButtonNavBar.classList.remove('blink');
+    }, 700);
+}
+
 // Add chosen items to the shopping cart and the order summery
 addToCartButton.addEventListener('click', function() {
 
-    // Add a custom blinking for the cart button when an item was added and iIncrease the item count in on the cart
-    itemCount += 1;
-    shoppingBasketId.classList.add( 'fas', 'fa-shopping-cart');
-    shoppingBasketId.innerText = '(' + itemCount + ')' +' Shopping-Basket';
-    cartButtonNavBar.classList.add('blink');
-    setTimeout(function () {
-        cartButtonNavBar.classList.remove('blink');
-    }, 500);
-
-
-    if(emptyShoppingCartHeadLine.innerHTML === 'Your Shopping Cart is empty!' && emptyShoppingCartContent.innerHTML === '') {
+    if(emptyShoppingCartHeadLine.innerHTML === 'Your Shopping Cart is empty!' && emptyShoppingCartContent.innerHTML === '' && choiceLabel.innerText === 'Select a product:') {
 
         // Clear the empty shopping cart headline
         emptyShoppingCartHeadLine.innerText = 'Your Items:'
         emptyShoppingCartHeadLine.classList.add('text-decoration-underline');
     }
 
+    // If a product is selected and the add to basked button was pressed add item
+    if(choiceLabel.innerText === 'Select a product:') {
+
+        // Call blinkAndCountShoppingCart function
+        blinkAndCountShoppingCart();
 
         // Get the select element
         let chosenItem = document.getElementById('secondSelect');
@@ -108,6 +125,7 @@ addToCartButton.addEventListener('click', function() {
             newElementOrder.textContent = addedProduct;
             currentShoppingCartOrder.appendChild(newElementOrder);
         });
+    }
 });
 
 // Clear shopping Cart modal
@@ -116,8 +134,8 @@ clearOrderButton.addEventListener('click', function() {
     emptyShoppingCartHeadLine.classList.remove('text-decoration-underline');
     emptyShoppingCartContent.innerText = '';
     emptyOrderSummeryContent.innerText = '';
-    shoppingBasketId.innerText = " Shopping-Basket";
-    shoppingBasketId.classList.add( "fas", "fa-shopping-cart");
+    shoppingBasket.innerText = " Shopping-Basket";
+    shoppingBasket.classList.add( "fas", "fa-shopping-cart");
     itemCount = 0;
 });
 
@@ -208,9 +226,21 @@ window.onload = function () {
     myShoppingCartModalEl.addEventListener('hidden.bs.modal', scrollToForm);
 }
 
+// Refresh the web page after the order was completed
+closeOrderSummery.addEventListener('click', function (){
 
+    // Check if the shopping cart is empty
+    if(!(emptyShoppingCartHeadLine.innerHTML === 'Your Shopping Cart is empty!')) {
 
+        // Scroll up
+        window.scrollTo(0,0);
 
+        // Refresh the website
+        setTimeout(function() {
+            location.reload();
+        }, 600)
+    }
+});
 
 
 

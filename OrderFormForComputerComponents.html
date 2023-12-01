@@ -28,10 +28,9 @@
     }
 
     /* Make the cart button blink */
+
     @keyframes blink {
-        0% {opacity: 1;}
         50% {opacity: 0;}
-        100% {opacity: 1;}
     }
     .blink {
         animation: blink 1s linear infinite;
@@ -59,7 +58,7 @@
              <div class="bg-white text-black rounded-3">
 
                  <!-- Cart button triggers modal-->
-                <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#shoppingCartModal" id="cartButton"><i class="fas fa-shopping-cart" id="shoppingBasket"> Shopping-Basket</i></button>
+                <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#shoppingCartModal" id="cartButton"><i class="fas fa-shopping-cart" id="shoppingBasketInput"> Shopping-Basket</i></button>
 
                  <!-- Shopping cart modal -->
                  <div class="modal fade" id="shoppingCartModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="shoppingCartModal" aria-hidden="true">
@@ -88,7 +87,7 @@
 
             <!-- Advertisement column left -->
             <div class="col-sm-2 container-fluid p-2 mb-2 mt-2 ms-3 bg-dark text-white rounded-3">
-                <h3 class="ms-3">Place your ads in here</h3>
+                <h3 class="text-center">Place your ads here</h3>
                 <div class="mt-5">
                     <picture>
                         <source srcset="Pictures/ad1.jfif" type="image/jpeg">
@@ -113,16 +112,25 @@
                         <img src="Pictures/ad2.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
                     </picture>
                 </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad1.jfif" type="image/jpeg">
+                        <img src="Pictures/ad1.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <h3 class="ms-3 mt-5">Place your ads here</h3>
             </div>
 
-            <!-- Dropdown and personal data -->
+            <!-- Dropdown for computer parts and personal data form -->
             <div class="col-sm container-fluid">
-                <div class="container-sm p-4 mt-2 bg-dark text-white rounded-3">
-                    <form class="row g-2" id="orderForm">
+                <div class="container-sm  h-50 p- mt-2 bg-dark text-white rounded-3">
 
+                    <form class="row" id="orderForm">
+
+                        <h2 class="text-center mb-5 mt-3">Choose your Computer Parts in the Dropdown Menu</h2>
                         <!-- Dropdown for Computer Parts -->
-                            <label class="fst-italic fw-lighter fs-6" for="computerPartsAndAccessory">Computer Parts and Accessory:</label>
-                            <div class="col-12 mx-auto ">
+                            <div class="col-12 mx-auto w-75 ">
+                                <label class="fst-italic fw-lighter fs-6 mb-1" for="computerPartsAndAccessory">Computer Parts and Accessory:</label>
                                 <select class="form-select" id="computerPartsAndAccessory">
                                     <option selected value="products">Select your computer parts</option>
                                     <option value="cases">Cases</option>
@@ -137,23 +145,23 @@
                                     <option value="accessory">Accessory</option>
                                 </select>
 
-                                <!-- Second dropdown -->
-                                <label class="fst-italic fw-lighter fs-6 mt-3" for="secondSelect" id="choiceLabel"></label>
-                                <select class="form-select mt-1" id="secondSelect" style="display: none;"></select>
-                            </div>
+                                <!-- Picture to illustrate the choice -->
+                                <h1 class="fst-italic fw-lighter fs-6 mt-1 mb-2 mt-4">Product Example:</h1>
+                                <picture>
+                                    <source srcset="" type="image/jpeg">
+                                    <img id="productPicture1" src="Pictures/BackgroundPicPC.jfif" class="img-fluid img-thumbnail mx-auto mb-2 d-block h-50 w-100" alt="GamingPC">
+                                </picture>
 
-                            <!-- Add to cart button -->
-                            <div class="col-auto mt-2 mb-3">
-                                <button type="button" class="btn btn-primary" id="addToCartButton">Add To Cart</button>
+                                <!-- Second dropdown -->
+                                <label class="fst-italic fw-lighter fs-6 mt-3" for="secondSelect" id="choiceLabelInput"></label>
+                                <select class="form-select mt-1" id="secondSelect" style="display: none;"></select>
+
+                                <!-- Add to cart button -->
+                                <div class=" mt-2">
+                                    <button type="button" class="btn btn-primary" id="addToCartButton" style="display: none;">Add to Basket</button>
+                                </div>
                             </div>
                     </form>
-
-                    <!-- Picture to illustrate the choice -->
-                    <h1 class="fst-italic fw-lighter fs-6 mt-1 mb-3">Product Example:</h1>
-                    <picture>
-                        <source srcset="" type="image/jpeg">
-                        <img id="productPicture1" src="Pictures/BackgroundPicPC.jfif" class="img-fluid img-thumbnail mx-auto mb-2 d-block" alt="GamingPC">
-                    </picture>
                 </div>
 
                 <!--Personal data section -->
@@ -258,9 +266,10 @@
                                 <p>Bank Account:<span id="modalBankAccount"></span></p>
                                 <h6 class="text-decoration-underline">Order Summery</h6>
                                 <p id="shoppingCartOrderSummery"></p>
+                                <h5>Thank you for your order!</h5>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeOrderSummeryInput">Close</button>
                             </div>
                         </div>
                     </div>
@@ -269,7 +278,7 @@
 
             <!-- Advertisement column right -->
             <div class="col-sm-2 container-fluid p-2 mb-2 mt-2 me-3 bg-dark text-white rounded-3">
-                <h3 class="ms-3">Place your ads in here</h3>
+                <h3 class="text-center">Place your ads here</h3>
                 <div class="mt-5">
                     <picture>
                         <source srcset="Pictures/ad1.jfif" type="image/jpeg">
@@ -294,6 +303,13 @@
                         <img src="Pictures/ad2.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
                     </picture>
                 </div>
+                <div class="mt-5">
+                    <picture>
+                        <source srcset="Pictures/ad1.jfif" type="image/jpeg">
+                        <img src="Pictures/ad1.jfif" class="img-fluid img-thumbnail mx-auto d-block" alt="GamingPC">
+                    </picture>
+                </div>
+                <h3 class="ms-3 mt-5">Place your ads here</h3>
             </div>
         </div>
     </div>
@@ -302,6 +318,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <!-- JavaScript file -->
-    <script src="script.js"></script>
+    <script src="webApp.js"></script>
 </body>
 </html>
