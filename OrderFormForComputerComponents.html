@@ -16,22 +16,36 @@
     <!-- Custom styling -->
     <style>
 
+    /* Custom styling for the nav-bar */
     .pictureBackground1 {
         background: url('Pictures/BackgroundPicPC.jfif') no-repeat center center;
         -webkit-background-size: cover;
 
     }
-
     .navbar-brand {
         font-family: 'Shadows Into Light', cursive;
         font-size: 1.5rem;
     }
+
+    /* Make the cart button blink */
+    @keyframes blink {
+        0% {opacity: 1;}
+        50% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    .blink {
+        animation: blink 1s linear infinite;
+    }
+
     </style>
 </head>
 
 <body>
+
+    <!-- Nav-bar -->
     <nav class="navbar navbar-light bg-light pictureBackground1">
         <div class="container-fluid">
+
             <!-- Shop logo that is pointing to the top of the page -->
             <a class="navbar-brand bg-white text-black rounded-3 " href="#">CompCompShop</a>
             <form class="d-flex mx-auto w-75">
@@ -40,24 +54,28 @@
                     <button class="btn btn-outline-dark" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </form>
-            <!-- Shopping card handling -->
+
+            <!-- Shopping cart handling -->
              <div class="bg-white text-black rounded-3">
-                 <!-- Card button trigger modal-->
-                <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#shoppingCardModal"><i class="fas fa-shopping-cart"></i> Card</button>
-                 <!-- Shopping card modal -->
-                 <div class="modal fade" id="shoppingCardModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="shoppingCardModal" aria-hidden="true">
+
+                 <!-- Cart button triggers modal-->
+                <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#shoppingCartModal" id="cartButton"><i class="fas fa-shopping-cart" id="shoppingBasket"> Shopping-Basket</i></button>
+
+                 <!-- Shopping cart modal -->
+                 <div class="modal fade" id="shoppingCartModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="shoppingCartModal" aria-hidden="true">
                      <div class="modal-dialog">
                          <div class="modal-content">
                              <div class="modal-header">
-                                 <h5 class="modal-title">Your Shopping Card</h5>
-                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                 <h5 class="modal-title">Your Shopping Cart</h5>
                              </div>
-                             <div class="modal-body">
-                                 Your Shopping Card is empty.
+                             <div class="modal-body" id="shoppingCartBody">
+                                 <p id="shoppingCartHeadLine">Your Shopping Cart is empty!</p>
+                                 <p id="shoppingCartContent"></p>
                              </div>
-                             <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                 <button type="button" class="btn btn-primary">Understood</button>
+                           <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeButtonShoppingCart">Close</button>
+                                 <button type="button" class="btn btn-danger" id="clearOrderButtonShoppingCart">Clear Shopping Cart</button>
+                                 <button type="button" class="btn btn-success" id="OrderNowButtonShoppingCart">Order Now</button>
                              </div>
                          </div>
                      </div>
@@ -103,7 +121,7 @@
                     <form class="row g-2" id="orderForm">
 
                         <!-- Dropdown for Computer Parts -->
-                            <label for="computerPartsAndAccessory">Computer Parts and Accessory:</label>
+                            <label class="fst-italic fw-lighter fs-6" for="computerPartsAndAccessory">Computer Parts and Accessory:</label>
                             <div class="col-12 mx-auto ">
                                 <select class="form-select" id="computerPartsAndAccessory">
                                     <option selected value="products">Select your computer parts</option>
@@ -111,7 +129,7 @@
                                     <option value="MainBoard">Main Boards</option>
                                     <option value="cpus">CPUs</option>
                                     <option value="coolingSystems">Cooling Systems</option>
-                                    <option value="ram">Ram</option>
+                                    <option value="ram">RAM</option>
                                     <option value="ssdAndHdd">SSD & HDD</option>
                                     <option value="gpu">GPUs</option>
                                     <option value="powerSupply">Power Supply</option>
@@ -120,13 +138,13 @@
                                 </select>
 
                                 <!-- Second dropdown -->
-                                <label class="fst-italic fw-lighter fs-6 mb-1" for="secondSelect">Choice an option:</label>
+                                <label class="fst-italic fw-lighter fs-6 mt-3" for="secondSelect" id="choiceLabel"></label>
                                 <select class="form-select mt-1" id="secondSelect" style="display: none;"></select>
                             </div>
 
-                            <!-- Add to card button -->
+                            <!-- Add to cart button -->
                             <div class="col-auto mt-2 mb-3">
-                                <button type="button" class="btn btn-primary">Add To Card</button>
+                                <button type="button" class="btn btn-primary" id="addToCartButton">Add To Cart</button>
                             </div>
                     </form>
 
@@ -196,6 +214,10 @@
                                 <input type="text" class="form-control" id="inputZip" placeholder="51143" required>
                             </div>
                             <div class="col-12">
+                                <label for="inputBankAccount" class="form-label">Bank Account</label>
+                                <input type="text" class="form-control" id="inputBankAccount" placeholder="IBAN" required>
+                            </div>
+                            <div class="col-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                     <label class="form-check-label" for="invalidCheck">
@@ -206,10 +228,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
 
-                                <!-- Order Now button  -->
-                                <button type="submit" class="btn btn-primary" data-bs-target="#orderSummeryModal">
+                            <!-- Order Now button  -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success" data-bs-target="#orderSummeryModal">
                                     Order Now
                                 </button>
                             </div>
@@ -223,10 +245,9 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Your order summery</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <h6>Personal Data</h6>
+                            <div class="modal-body" id="oderSummeryBody">
+                                <h6 class="text-decoration-underline">Personal Data</h6>
                                 <p>First Name: <span id="modalFirstName"></span></p>
                                 <p>Last Name:<span id="modalLastName"></span></p>
                                 <p>Email:<span id="modalEmail"></span></p>
@@ -234,7 +255,9 @@
                                 <p>City:<span id="modalCity"></span></p>
                                 <p>State:<span id="modalState"></span></p>
                                 <p>Zip Code: <span id="modalZip"></span></p>
-
+                                <p>Bank Account:<span id="modalBankAccount"></span></p>
+                                <h6 class="text-decoration-underline">Order Summery</h6>
+                                <p id="shoppingCartOrderSummery"></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
