@@ -139,14 +139,14 @@ clearOrderButton.addEventListener('click', function() {
     itemCount = 0;
 });
 
-
+let personalDataForm = document.querySelector('.needs-validation');
 
 // Personal data section handling
 window.onload = function () {
     'use strict'
 
     // // Declare and initialize the form and other necessary elements
-    let personalDataForm = document.querySelector('.needs-validation');
+    //let personalDataForm = document.querySelector('.needs-validation');
     let myOderSummeryModalEl = document.getElementById('orderSummeryModal');
     let orderNowButtonShoppingCart = document.getElementById('OrderNowButtonShoppingCart');
     let myShoppingCartModalEl= document.getElementById('shoppingCartModal');
@@ -157,6 +157,7 @@ window.onload = function () {
 
     // Function to validate the form data on submission
     function validateForm(event) {
+        personalDataForm.checkValidity();
         if (!personalDataForm.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
@@ -219,12 +220,29 @@ window.onload = function () {
 
         }
     }
-
     // Event listeners
     personalDataForm.addEventListener('submit', validateForm);
     orderNowButtonShoppingCart.addEventListener('click',  setFlagByOrderNowButton);
     myShoppingCartModalEl.addEventListener('hidden.bs.modal', scrollToForm);
 }
+
+
+//Make the ads disappear when there is not enough space
+window.addEventListener('resize', function (){
+let adDivs = document.querySelectorAll('.resizeDiv');
+
+    // Loop through the div elements
+    for (let i = 0; i < adDivs.length; i++) {
+
+        // If the window width is less than a certain value, hide the ads
+        if (window.innerWidth < 500) {
+            adDivs[i].style.display = 'none';
+        } else {
+            // Otherwise, show the ads
+            adDivs[i].style.display = 'block';
+        }
+    }
+});
 
 // Refresh the web page after the order was completed
 closeOrderSummery.addEventListener('click', function (){
