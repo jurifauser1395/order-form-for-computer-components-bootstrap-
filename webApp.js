@@ -1,20 +1,21 @@
 
 // Declare and initialize select from elements and global variables
 let firstSelect = document.getElementById('computerPartsAndAccessory');
-let secondSelect = document.getElementById('secondSelect');
+let secondSelect = document.getElementById('secondSelectInput');
 let productPictureChange = document.getElementById('productPicture1');
 let addToCartButton = document.getElementById('addToCartButton');
 let cartButtonNavBar = document.getElementById('cartButton');
 let clearOrderButton =document.getElementById('clearOrderButtonShoppingCart');
 let emptyShoppingCartHeadLine = document.getElementById('shoppingCartHeadLine');
-let emptyShoppingCartContent = document.getElementById('shoppingCartContent');
-let emptyOrderSummeryContent = document.getElementById('shoppingCartOrderSummery');
+let currentShoppingCartContent = document.getElementById('shoppingCartContent');
+let currentOrderSummeryContent = document.getElementById('shoppingCartOrderSummery');
 let shoppingBasket = document.getElementById('shoppingBasketInput');
 let choiceLabel = document.getElementById('choiceLabelInput');
 let closeOrderSummery = document.getElementById('closeOrderSummeryInput');
+let personalDataForm = document.querySelector('.needs-validation');
 
 
-// Declare options object
+// Declare options object (alternatively one could use a database)
 let options = {
     'cases': { options: ['Corsair Case', 'NZXT Case', 'Thermaltake Case', 'Cooler Master Case', 'Fractal Design Case'], image:'Pictures/cases.jfif'},
     'MainBoard': { options:['Asus Motherboard', 'Gigabyte Motherboard', 'MSI Motherboard', 'ASRock Motherboard', 'EVGA Motherboard'], image:'Pictures/motherboard.jfif'},
@@ -72,16 +73,22 @@ let itemCount = 0;
 
 // Define blinking and item count function
 function blinkAndCountShoppingCart(){
+    // Add item
     itemCount += 1;
+
+    // Change the appearance of the basket button
     shoppingBasket.classList.add('fas', 'fa-shopping-cart');
     shoppingBasket.innerText = ' (' + itemCount + ') ' + 'items';
+
+    // Start blinking
     cartButtonNavBar.classList.add('blink');
 
-    //scroll up to show the blink effect
+    // Scroll up to show the blink effect
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
+    // Stop blinking after a timeout
     setTimeout(function () {
         cartButtonNavBar.classList.remove('blink');
     }, 700);
@@ -90,7 +97,8 @@ function blinkAndCountShoppingCart(){
 // Add chosen items to the shopping cart and the order summery
 addToCartButton.addEventListener('click', function() {
 
-    if(emptyShoppingCartHeadLine.innerHTML === 'Your Shopping Cart is empty!' && emptyShoppingCartContent.innerHTML === '' && choiceLabel.innerText === 'Select a product:') {
+    // Check if the shopping cart is empty and no items were added and no items were selected
+    if(emptyShoppingCartHeadLine.innerHTML === 'Your Shopping Cart is empty!' && currentShoppingCartContent.innerHTML === '' && choiceLabel.innerText === 'Select a product:') {
 
         // Clear the empty shopping cart headline
         emptyShoppingCartHeadLine.innerText = 'Your Items:'
@@ -103,61 +111,61 @@ addToCartButton.addEventListener('click', function() {
         // Call blinkAndCountShoppingCart function
         blinkAndCountShoppingCart();
 
-        // Get the select element
-        let chosenItem = document.getElementById('secondSelect');
-
         // Get the selected options
-        let chosenOptions = Array.from(chosenItem.selectedOptions);
+        let chosenOptions = Array.from(secondSelect.selectedOptions);
 
         // Loop through the chosen options
         chosenOptions.forEach(function (option) {
             let addedProduct = option.text;
 
             // Append the selected option to a previous tag in the shopping cart
-            let currentShoppingCart = document.getElementById('shoppingCartContent');
             let newElement = document.createElement('p');
             newElement.textContent = addedProduct;
-            currentShoppingCart.appendChild(newElement);
+            currentShoppingCartContent.appendChild(newElement);
 
             // Append the selected option to a previous tag in the order summery
-            let currentShoppingCartOrder = document.getElementById('shoppingCartOrderSummery')
             let newElementOrder = document.createElement('p');
             newElementOrder.textContent = addedProduct;
-            currentShoppingCartOrder.appendChild(newElementOrder);
+            currentOrderSummeryContent.appendChild(newElementOrder);
         });
     }
 });
 
-// Clear shopping Cart modal
+// Clear shopping Cart modal and the basket button
 clearOrderButton.addEventListener('click', function() {
     emptyShoppingCartHeadLine.innerText = 'Your Shopping Cart is empty!';
     emptyShoppingCartHeadLine.classList.remove('text-decoration-underline');
-    emptyShoppingCartContent.innerText = '';
-    emptyOrderSummeryContent.innerText = '';
+    currentShoppingCartContent.innerText = '';
+    currentOrderSummeryContent.innerText = '';
     shoppingBasket.innerText = " Shopping-Basket";
     shoppingBasket.classList.add( "fas", "fa-shopping-cart");
     itemCount = 0;
 });
 
-let personalDataForm = document.querySelector('.needs-validation');
 
 // Personal data section handling
 window.onload = function () {
     'use strict'
 
-    // // Declare and initialize the form and other necessary elements
-    //let personalDataForm = document.querySelector('.needs-validation');
-    let myOderSummeryModalEl = document.getElementById('orderSummeryModal');
-    let orderNowButtonShoppingCart = document.getElementById('OrderNowButtonShoppingCart');
-    let myShoppingCartModalEl= document.getElementById('shoppingCartModal');
-    let myShoppingCartModal = new bootstrap.Modal(myShoppingCartModalEl);
-    let myOderSummeryModal = new bootstrap.Modal(myOderSummeryModalEl);
+    // Declare and initialize  other necessary elements
+    let orderNowButtonShoppingCart = document.getElementById('OrderNowButtonShoppingCartInput');
+    let oderSummeryModalEl = document.getElementById('orderSummeryModalInput');
+    let shoppingCartModalEl= document.getElementById('shoppingCartModalInput');
+
+    // Declare and initialize forms
+    let newShoppingCartModal = new bootstrap.Modal(shoppingCartModalEl);
+    let newOderSummeryModal = new bootstrap.Modal(oderSummeryModalEl);
+
+    // Declare and initialize flag variable
     let wasClosedByOrderNowButton = false;
 
+    // Function to validate the personal data form data on submission
+    function validatePersonalDataForm(event) {
 
-    // Function to validate the form data on submission
-    function validateForm(event) {
+        // Check validity first to initialize animation
         personalDataForm.checkValidity();
+
+        // Show required fields for form submission
         if (!personalDataForm.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
@@ -188,15 +196,14 @@ window.onload = function () {
                     document.getElementById('modalBankAccount').innerText = ' ' + bankAccount;
 
                     // Display modal with passed values
-                    myOderSummeryModal.show();
+                    newOderSummeryModal.show();
                 } else {
 
                     // Shopping cart empty
                     document.getElementById('oderSummeryBody').innerHTML = 'Your Shopping Cart is empty, please add at least one item!'
 
                     // Display empty modal
-                    myOderSummeryModal.show();
-
+                    newOderSummeryModal.show();
                 }
         }
         personalDataForm.classList.add('was-validated'); // Mark the form as validated
@@ -204,26 +211,33 @@ window.onload = function () {
 
    // Function to set the flag when the Order Now button in the shopping cart is clicked and hide the shopping cart after pressing the Order Now button
     function setFlagByOrderNowButton() {
+
+        // Check if the cart has any items
         if (!(emptyShoppingCartHeadLine.innerHTML === 'Your Shopping Cart is empty!')) {
-            myShoppingCartModal.hide();
+
+            // If it has, close the shopping cart modal and set the flag variable true
+            newShoppingCartModal.hide();
             wasClosedByOrderNowButton = true;
         }
     }
 
     // Function to scroll to the form and validate it after the shopping cart modal is hidden
-    function scrollToForm(event) {
+    function scrollToPersonalDataForm(event) {
         if(wasClosedByOrderNowButton && !(emptyShoppingCartHeadLine.innerHTML === 'Your Shopping Cart is empty!')) {
+
+            // Scroll into view to and call validatePersonalDataForm function
             event.preventDefault();
             personalDataForm.scrollIntoView({behavior: "smooth"});
-            validateForm(event);
-            wasClosedByOrderNowButton = false;
+            validatePersonalDataForm(event);
 
+            // Set flag variable false for the next cycle
+            wasClosedByOrderNowButton = false;
         }
     }
     // Event listeners
-    personalDataForm.addEventListener('submit', validateForm);
+    personalDataForm.addEventListener('submit', validatePersonalDataForm);
     orderNowButtonShoppingCart.addEventListener('click',  setFlagByOrderNowButton);
-    myShoppingCartModalEl.addEventListener('hidden.bs.modal', scrollToForm);
+    shoppingCartModalEl.addEventListener('hidden.bs.modal', scrollToPersonalDataForm);
 }
 
 
@@ -257,6 +271,9 @@ closeOrderSummery.addEventListener('click', function (){
         setTimeout(function() {
             location.reload();
         }, 600)
+    } else {
+        // Scroll up
+        window.scrollTo(0,0);
     }
 });
 

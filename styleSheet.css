@@ -1,0 +1,18 @@
+/* Custom styling for the nav-bar */
+.pictureBackground1 {
+    background: url('Pictures/BackgroundPicPC.jfif') no-repeat center center;
+    -webkit-background-size: cover;
+
+}
+.navbar-brand {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 1.5rem;
+}
+
+/* Make the cart button blink */
+@keyframes blink {
+    50% {opacity: 0;}
+}
+.blink {
+    animation: blink 1s linear infinite;
+}
