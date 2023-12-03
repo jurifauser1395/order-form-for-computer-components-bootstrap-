@@ -13,6 +13,7 @@ let shoppingBasket = document.getElementById('shoppingBasketInput');
 let choiceLabel = document.getElementById('choiceLabelInput');
 let closeOrderSummery = document.getElementById('closeOrderSummeryInput');
 let personalDataForm = document.querySelector('.needs-validation');
+let itemCount = 0;
 
 
 // Declare options object (alternatively one could use a database)
@@ -68,8 +69,6 @@ firstSelect.addEventListener('change', function () {
     }
 });
 
-// Item count
-let itemCount = 0;
 
 // Define blinking and item count function
 function blinkAndCountShoppingCart(){
