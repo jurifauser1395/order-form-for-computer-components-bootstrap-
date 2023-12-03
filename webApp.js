@@ -12,22 +12,53 @@ let currentOrderSummeryContent = document.getElementById('shoppingCartOrderSumme
 let shoppingBasket = document.getElementById('shoppingBasketInput');
 let choiceLabel = document.getElementById('choiceLabelInput');
 let closeOrderSummery = document.getElementById('closeOrderSummeryInput');
+let shoppingCartFinalPrice = document.getElementById('finalPrice');
+let orderSummeryFinalPrice = document.getElementById('finalPriceOrderSummery');
 let personalDataForm = document.querySelector('.needs-validation');
-let itemCount = 0;
+let itemQuantityLabel = document.getElementById('itemQuantityLabelInput');
+let itemQuantity = document.getElementById('itemQuantityInput');
+let finaAddedProductCost = 0;
+let finalItemCount = 0;
 
+
+
+// Define blinking and item count function
+function blinkAndCountShoppingCart(){
+
+    // Add  up the total number of items in the basket
+    let itemQuantityValue = Number(itemQuantity.value);
+    finalItemCount += itemQuantityValue;
+
+    // Change the appearance of the basket button
+    shoppingBasket.classList.add('fas', 'fa-shopping-cart');
+    shoppingBasket.innerText = ' (' + finalItemCount + ') ' + 'items';
+
+    // Start blinking
+    cartButtonNavBar.classList.add('blink');
+
+    // Scroll up to show the blink effect
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    // Stop blinking after a timeout
+    setTimeout(function () {
+        cartButtonNavBar.classList.remove('blink');
+    }, 700);
+}
 
 // Declare options object (alternatively one could use a database)
 let options = {
-    'cases': { options: ['Corsair Case', 'NZXT Case', 'Thermaltake Case', 'Cooler Master Case', 'Fractal Design Case'], image:'Pictures/cases.jfif'},
-    'MainBoard': { options:['Asus Motherboard', 'Gigabyte Motherboard', 'MSI Motherboard', 'ASRock Motherboard', 'EVGA Motherboard'], image:'Pictures/motherboard.jfif'},
-    'cpus': { options: ['Intel Core i7', 'AMD Ryzen 7', 'Intel Core i5', 'AMD Ryzen 5', 'Intel Core i9'], image:'Pictures/CPU.jfif'},
-    'coolingSystems': { options: ['Noctua Cooler', 'be quiet! Cooler', 'Corsair Cooler', 'Cooler Master Cooler', 'NZXT Cooler'], image:'Pictures/cooling.jfif'},
-    'ram': { options: ['Corsair RAM', 'G.Skill RAM', 'Kingston RAM', 'Crucial RAM', 'HyperX RAM'], image:'Pictures/ram.jfif'},
-    'ssdAndHdd': { options: ['Samsung SSD', 'Western Digital HDD', 'Seagate HDD', 'Kingston SSD', 'SanDisk SSD'], image:'Pictures/HDD.jfif'},
-    'gpu': { options: ['Nvidia GeForce RTX 3080', 'AMD Radeon RX 6800 XT', 'Nvidia GeForce RTX 3070', 'AMD Radeon RX 6700 XT', 'Nvidia GeForce RTX 3090'], image:'Pictures/GPU.jfif'},
-    'powerSupply': {options : ['Corsair RMx Series', 'EVGA SuperNOVA', 'Seasonic FOCUS Plus', 'Thermaltake Toughpower', 'Cooler Master MWE Gold'], image:'Pictures/powerSupply.jfif'},
-    'monitor': { options: ['Dell Monitor', 'Asus Monitor', 'Acer Monitor', 'LG Monitor', 'BenQ Monitor'], image:'Pictures/monitors.jfif'},
-    'accessory': { options: ['Logitech Mouse', 'Razer Keyboard', 'SteelSeries Headset', 'Corsair Mouse Pad', 'HyperX Keyboard'], image:'Pictures/accessory.jfif'}
+    'cases': { options: ['Corsair Case (120$ each)', 'NZXT Case (130$ each)', 'Thermaltake Case (140$ each)', 'Cooler Master Case (150$ each)', 'Fractal Design Case (160$ each)'], image:'Pictures/cases.jfif'},
+    'MainBoard': { options:['Asus Motherboard (170$ each)', 'Gigabyte Motherboard (180$ each)', 'MSI Motherboard (190$ each)', 'ASRock Motherboard (200$ each)', 'EVGA Motherboard (210$ each)'], image:'Pictures/motherboard.jfif'},
+    'cpus': { options: ['Intel Core i7 (220$ each)', 'AMD Ryzen 7 (230$ each)', 'Intel Core i5 (240$ each)', 'AMD Ryzen 5 (250$ each)', 'Intel Core i9 (260$ each)'], image:'Pictures/CPU.jfif'},
+    'coolingSystems': { options: ['Noctua Cooler (270$ each)', 'be quiet! Cooler (280$ each)', 'Corsair Cooler (290$ each)', 'Cooler Master Cooler (300$ each)', 'NZXT Cooler (310$ each)'], image:'Pictures/cooling.jfif'},
+    'ram': { options: ['Corsair RAM (320$ each)', 'G.Skill RAM (330$ each)', 'Kingston RAM (340$ each)', 'Crucial RAM (350$ each)', 'HyperX RAM (360$ each)'], image:'Pictures/ram.jfif'},
+    'ssdAndHdd': { options: ['Samsung SSD (370$ each)', 'Western Digital HDD (380$ each)', 'Seagate HDD (390$ each)', 'Kingston SSD (400$ each)', 'SanDisk SSD (410$ each)'], image:'Pictures/HDD.jfif'},
+    'gpu': { options: ['Nvidia GeForce RTX 3080 (420$ each)', 'AMD Radeon RX 6800 XT (430$ each)', 'Nvidia GeForce RTX 3070 (440$ each)', 'AMD Radeon RX 6700 XT (450$ each)', 'Nvidia GeForce RTX 3090 (460$ each)'], image:'Pictures/GPU.jfif'},
+    'powerSupply': {options : ['Corsair RMx Series (470$ each)', 'EVGA SuperNOVA (480$ each)', 'Seasonic FOCUS Plus (490$ each)', 'Thermaltake Toughpower (500$ each)', 'Cooler Master MWE Gold (510$ each)'], image:'Pictures/powerSupply.jfif'},
+    'monitor': { options: ['Dell Monitor (520$ each)', 'Asus Monitor (530$ each)', 'Acer Monitor (540$ each)', 'LG Monitor (550$ each)', 'BenQ Monitor (560$ each)'], image:'Pictures/monitors.jfif'},
+    'accessory': { options: ['Logitech Mouse (570$ each)', 'Razer Keyboard (580$ each)', 'SteelSeries Headset (590$ each)', 'Corsair Mouse Pad (600$ each)', 'HyperX Keyboard (610$ each)'], image:'Pictures/accessory.jfif'}
 };
 
 // Add an event listener to the first select element
@@ -52,10 +83,12 @@ firstSelect.addEventListener('change', function () {
 
         // Add a label to the second dropdown
         choiceLabel.innerText = 'Select a product:'
+        itemQuantityLabel.innerText = 'Enter quantity:'
 
         // Show the second select element
         secondSelect.style.display = 'block';
         addToCartButton.style.display = 'block';
+        itemQuantity.style.display = 'block';
 
         // Change the product image
         productPictureChange.src = options[selectedOption].image;
@@ -64,34 +97,12 @@ firstSelect.addEventListener('change', function () {
         // If the selected option does not exist in the options object, hide the second select element and display the default picture
         secondSelect.style.display = 'none';
         addToCartButton.style.display = 'none';
+        itemQuantity.style.display = 'none';
         productPictureChange.src = 'Pictures/BackgroundPicPC.jfif';
         choiceLabel.innerText = ''
     }
 });
 
-
-// Define blinking and item count function
-function blinkAndCountShoppingCart(){
-    // Add item
-    itemCount += 1;
-
-    // Change the appearance of the basket button
-    shoppingBasket.classList.add('fas', 'fa-shopping-cart');
-    shoppingBasket.innerText = ' (' + itemCount + ') ' + 'items';
-
-    // Start blinking
-    cartButtonNavBar.classList.add('blink');
-
-    // Scroll up to show the blink effect
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-    // Stop blinking after a timeout
-    setTimeout(function () {
-        cartButtonNavBar.classList.remove('blink');
-    }, 700);
-}
 
 // Add chosen items to the shopping cart and the order summery
 addToCartButton.addEventListener('click', function() {
@@ -110,6 +121,10 @@ addToCartButton.addEventListener('click', function() {
         // Call blinkAndCountShoppingCart function
         blinkAndCountShoppingCart();
 
+        // Get the current item quantity
+        let currentItemQuantity = Number(itemQuantity.value);
+
+
         // Get the selected options
         let chosenOptions = Array.from(secondSelect.selectedOptions);
 
@@ -117,28 +132,37 @@ addToCartButton.addEventListener('click', function() {
         chosenOptions.forEach(function (option) {
             let addedProduct = option.text;
 
-            // Append the selected option to a previous tag in the shopping cart
-            let newElement = document.createElement('p');
-            newElement.textContent = addedProduct;
-            currentShoppingCartContent.appendChild(newElement);
+            // Calculate final order price
+            let addedProductCost = addedProduct.match(/\((\d+)\$/);
+            finaAddedProductCost += Number(addedProductCost[1]);
 
-            // Append the selected option to a previous tag in the order summery
-            let newElementOrder = document.createElement('p');
-            newElementOrder.textContent = addedProduct;
-            currentOrderSummeryContent.appendChild(newElementOrder);
+            // Append the selected option to a previous tag in the shopping cart and add subtotal
+            let newProduct = document.createElement('p');
+            newProduct.textContent =  + currentItemQuantity + 'x ' + addedProduct;
+            currentShoppingCartContent.appendChild(newProduct);
+            shoppingCartFinalPrice.innerText = 'Subtotal (' + finalItemCount + ' items): ' + finaAddedProductCost + ' $';
+
+            // Append the selected option to a previous tag in the order summery and add final price
+            let newProductOrder = document.createElement('p');
+            newProductOrder.textContent = currentItemQuantity + 'x ' + addedProduct;
+            currentOrderSummeryContent.appendChild(newProductOrder);
+            orderSummeryFinalPrice.innerText = 'Final Price (' + finalItemCount + ' items): ' + finaAddedProductCost + ' $';
         });
     }
 });
 
-// Clear shopping Cart modal and the basket button
+// Clear shopping Cart and order summery modal and the basket button
 clearOrderButton.addEventListener('click', function() {
     emptyShoppingCartHeadLine.innerText = 'Your Shopping Cart is empty!';
     emptyShoppingCartHeadLine.classList.remove('text-decoration-underline');
+    shoppingCartFinalPrice.innerText = '';
     currentShoppingCartContent.innerText = '';
     currentOrderSummeryContent.innerText = '';
+    orderSummeryFinalPrice.innerText = '';
     shoppingBasket.innerText = " Shopping-Basket";
     shoppingBasket.classList.add( "fas", "fa-shopping-cart");
-    itemCount = 0;
+    finalItemCount = 0;
+    finaAddedProductCost = 0;
 });
 
 
